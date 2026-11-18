@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Camille, mon amour ♥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Figtree:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1c0a2b;
+    --bg-glow: #4a1448;
+    --digit: #fff1f4;
+    --accent: #ff5d86;
+    --muted: #c9a9c4;
+    --line: rgba(255, 93, 134, .35);
+    --tile: rgba(255, 255, 255, .04);
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #fff3f6;
+      --bg-glow: #ffd3df;
+      --digit: #3a0f2e;
+      --accent: #d6285a;
+      --muted: #7b4f6f;
+      --line: rgba(214, 40, 90, .35);
+      --tile: rgba(255, 255, 255, .6);
+      color-scheme: light;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #fff3f6; --bg-glow: #ffd3df; --digit: #3a0f2e; --accent: #d6285a;
+    --muted: #7b4f6f; --line: rgba(214, 40, 90, .35); --tile: rgba(255, 255, 255, .6);
+    color-scheme: light;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); height: 100%; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100%;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(ellipse at 50% 30%, var(--bg-glow) 0%, var(--bg) 65%) var(--bg);
+    color: var(--digit);
+    font-family: "Figtree", system-ui, sans-serif;
+    padding: 24px 16px;
+  }
+  main { width: 100%; max-width: 980px; text-align: center; }
+  h1 {
+    font-family: "Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.4rem, 9vw, 5.5rem);
+    letter-spacing: .02em;
+    line-height: 1;
+    margin: 0 0 12px;
+  }
+  .since { color: var(--muted); margin: 0 0 40px; font-size: 1.05rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  .cell {
+    background: var(--tile);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 6px 14px;
+  }
+  .cell.sec { border-color: var(--accent); box-shadow: 0 0 32px -6px var(--accent); }
+  .num {
+    display: block;
+    font-family: "Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(2.2rem, 8.5vw, 5.5rem);
+    line-height: 1;
+  }
+  .sec .num { color: var(--accent); }
+  .tick { animation: tick .35s ease-out; }
+  @keyframes tick { from { opacity: .35; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+  .label { display: block; margin-top: 10px; color: var(--muted); font-size: clamp(.7rem, 2.4vw, 1rem); }
+  .total { margin: 36px 0 0; color: var(--muted); font-size: 1rem; }
+  .total strong { color: var(--digit); font-weight: 600; }
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: repeat(3, 1fr); }
+    .num { font-size: clamp(2.4rem, 13vw, 4rem); }
+  }
+  body { overflow-x: hidden; }
+  main { position: relative; z-index: 1; }
+  .cell { position: relative; }
+  .cell::after { content: "♥"; position: absolute; top: 8px; right: 10px; font-size: .7rem; color: var(--accent); opacity: .7; }
+  .beat { font-size: clamp(2.2rem, 8vw, 3.5rem); color: var(--accent); line-height: 1; margin-bottom: 10px; text-shadow: 0 0 24px var(--accent); animation: beat 1.2s ease-in-out infinite; }
+  @keyframes beat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.25); } 30% { transform: scale(1); } 45% { transform: scale(1.18); } 60% { transform: scale(1); } }
+  .love { margin: 14px 0 0; color: var(--accent); font-size: 1.15rem; font-weight: 600; }
+  .hearts { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+  .heart { position: absolute; bottom: -40px; color: var(--accent); opacity: 0; animation: rise linear forwards; }
+  @keyframes rise { 0% { transform: translateY(0) translateX(0) rotate(-10deg); opacity: 0; } 10% { opacity: .55; } 100% { transform: translateY(-110vh) translateX(var(--drift, 30px)) rotate(15deg); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .tick, .beat { animation: none; } .hearts { display: none; } }
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts" aria-hidden="true"></div>
+<main>
+  <div class="beat" aria-hidden="true">♥</div>
+  <h1>Camille, mon amour</h1>
+  <p class="since">Ensemble depuis le 4 janvier 2025 à 04:02:00 ♡</p>
+  <div class="grid" role="timer" aria-label="Temps écoulé depuis le 4 janvier 2025">
+    <div class="cell"><span class="num" id="y">0</span><span class="label" id="ly">ans</span></div>
+    <div class="cell"><span class="num" id="mo">0</span><span class="label" id="lmo">mois</span></div>
+    <div class="cell"><span class="num" id="d">0</span><span class="label" id="ld">jours</span></div>
+    <div class="cell"><span class="num" id="h">00</span><span class="label" id="lh">heures</span></div>
+    <div class="cell"><span class="num" id="mi">00</span><span class="label" id="lmi">minutes</span></div>
+    <div class="cell sec"><span class="num" id="s">00</span><span class="label" id="ls">secondes</span></div>
+  </div>
+  <p class="total">Soit <strong id="tot">0</strong> jours passés ensemble ♡</p>
+  <p class="love">Je t’aime un peu plus à chaque seconde, Camille ♥</p>
+</main>
+<script>
+  var START = new Date(2025, 0, 4, 4, 2, 0);
+  var $ = function (id) { return document.getElementById(id); };
+  var last = {};
+
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+  function set(id, value, label, word) {
+    var el = $(id);
+    if (last[id] !== value) {
+      el.textContent = value;
+      if (id === "s") { el.classList.remove("tick"); void el.offsetWidth; el.classList.add("tick"); }
+      last[id] = value;
+    }
+    var n = parseInt(value, 10);
+    $(label).textContent = n > 1 || word.plural === word.singular ? word.plural : word.singular;
+  }
+
+  function update() {
+    var now = new Date();
+    if (now < START) { now = START; }
+
+    var months = (now.getFullYear() - START.getFullYear()) * 12 + (now.getMonth() - START.getMonth());
+    var anchor = new Date(START.getFullYear(), START.getMonth() + months, 4, 4, 2, 0);
+    if (anchor > now) {
+      months--;
+      anchor = new Date(START.getFullYear(), START.getMonth() + months, 4, 4, 2, 0);
+    }
+    var years = Math.floor(months / 12);
+    var restMonths = months % 12;
+
+    var days = Math.floor((now - anchor) / 86400000);
+    var a2 = new Date(anchor.getFullYear(), anchor.getMonth(), anchor.getDate() + days, 4, 2, 0);
+    if (a2 > now) {
+      days--;
+      a2 = new Date(anchor.getFullYear(), anchor.getMonth(), anchor.getDate() + days, 4, 2, 0);
+    }
+
+    var rem = Math.floor((now - a2) / 1000);
+    var h = Math.floor(rem / 3600);
+    var mi = Math.floor((rem % 3600) / 60);
+    var s = rem % 60;
+
+    set("y", String(years), "ly", { singular: "an", plural: "ans" });
+    set("mo", String(restMonths), "lmo", { singular: "mois", plural: "mois" });
+    set("d", String(days), "ld", { singular: "jour", plural: "jours" });
+    set("h", pad(h), "lh", { singular: "heure", plural: "heures" });
+    set("mi", pad(mi), "lmi", { singular: "minute", plural: "minutes" });
+    set("s", pad(s), "ls", { singular: "seconde", plural: "secondes" });
+
+    var totalDays = Math.floor((now - START) / 86400000);
+    $("tot").textContent = totalDays.toLocaleString("fr-FR");
+  }
+
+  update();
+  setInterval(update, 250);
+
+  var box = $("hearts");
+  var shapes = ["♥", "♡", "❤", "💗", "💕"];
+  function spawn() {
+    if (document.hidden) { return; }
+    var el = document.createElement("span");
+    el.className = "heart";
+    el.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+    el.style.left = Math.random() * 100 + "%";
+    el.style.fontSize = (14 + Math.random() * 26) + "px";
+    el.style.setProperty("--drift", (Math.random() * 80 - 40) + "px");
+    el.style.animationDuration = (7 + Math.random() * 6) + "s";
+    el.addEventListener("animationend", function () { el.remove(); });
+    box.appendChild(el);
+  }
+  setInterval(spawn, 700);
+</script>
+</body>
+</html>
